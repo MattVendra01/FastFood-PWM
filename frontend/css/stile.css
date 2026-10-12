@@ -1,0 +1,64 @@
+/*
+ * ============================================================
+ * STILE GENERALE
+ * ============================================================
+ */
+body {
+    background-color: #f8f9fa;
+}
+
+.logo-fastfood {
+    font-weight: bold;
+}
+
+.contenitore-pagina {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.prezzo-piatto {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #198754;
+}
+
+.immagine-card {
+    height: 180px;
+    object-fit: cover;
+}
+
+/*
+ * ============================================================
+ * CARD PIATTI E RISTORANTI
+ * ============================================================
+ */
+.card-app {
+    height: 100%;
+}
+
+.card-app-img {
+    height: 135px;
+    object-fit: cover;
+}
+
+.card-app .card-body {
+    padding: 14px;
+}
+
+.card-app .card-title {
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+}
+
+.card-app .card-text {
+    font-size: 0.92rem;
+}
+
+/*
+ * ============================================================
+ * LOGIN E REGISTRAZIONE
+ * ============================================================
+ */
+.icona-password {
+    display: block;
+}

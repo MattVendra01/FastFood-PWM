@@ -1,0 +1,1076 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "FastFood API",
+    "description": "Swagger delle API dell'applicazione FastFood",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/utenti/registrazione": {
+      "post": {
+        "tags": [
+          "Utenti"
+        ],
+        "summary": "Registra un nuovo utente",
+        "description": "Crea un nuovo account di tipo cliente o ristoratore.",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "cognome": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  },
+                  "tipoUtente": {
+                    "example": "any"
+                  },
+                  "telefono": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/utenti/login": {
+      "post": {
+        "tags": [
+          "Utenti"
+        ],
+        "summary": "Effettua il login",
+        "description": "Verifica email e password e restituisce un token JWT.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "any"
+                  },
+                  "password": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/utenti/profilo": {
+      "get": {
+        "tags": [
+          "Utenti"
+        ],
+        "summary": "Recupera il profilo dell'utente",
+        "description": "Restituisce i dati dell'utente autenticato.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Utenti"
+        ],
+        "summary": "Modifica il profilo dell'utente",
+        "description": "Modifica i dati personali, le preferenze, il metodo di pagamento ed eventualmente la password.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "cognome": {
+                    "example": "any"
+                  },
+                  "telefono": {
+                    "example": "any"
+                  },
+                  "metodoPagamento": {
+                    "example": "any"
+                  },
+                  "preferenze": {
+                    "example": "any"
+                  },
+                  "passwordAttuale": {
+                    "example": "any"
+                  },
+                  "nuovaPassword": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Utenti"
+        ],
+        "summary": "Elimina il profilo dell'utente",
+        "description": "Elimina l'account dell'utente autenticato.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/ristoranti/": {
+      "post": {
+        "tags": [
+          "Ristoranti"
+        ],
+        "summary": "Crea un ristorante",
+        "description": "Permette a un ristoratore autenticato di creare il proprio ristorante.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nomeRistorante": {
+                    "example": "any"
+                  },
+                  "descrizione": {
+                    "example": "any"
+                  },
+                  "telefono": {
+                    "example": "any"
+                  },
+                  "partitaIVA": {
+                    "example": "any"
+                  },
+                  "indirizzo": {
+                    "example": "any"
+                  },
+                  "citta": {
+                    "example": "any"
+                  },
+                  "immagine": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Ristoranti"
+        ],
+        "summary": "Ricerca i ristoranti",
+        "description": "Restituisce l'elenco dei ristoranti filtrando per nome e città.",
+        "parameters": [
+          {
+            "name": "nome",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "citta",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ristoranti/miei": {
+      "get": {
+        "tags": [
+          "Ristoranti"
+        ],
+        "summary": "Recupera il ristorante del ristoratore",
+        "description": "Restituisce il ristorante associato all'utente autenticato.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/ristoranti/mio": {
+      "put": {
+        "tags": [
+          "Ristoranti"
+        ],
+        "summary": "Modifica il proprio ristorante",
+        "description": "Aggiorna i dati del ristorante associato all'utente autenticato.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nomeRistorante": {
+                    "example": "any"
+                  },
+                  "descrizione": {
+                    "example": "any"
+                  },
+                  "telefono": {
+                    "example": "any"
+                  },
+                  "partitaIVA": {
+                    "example": "any"
+                  },
+                  "indirizzo": {
+                    "example": "any"
+                  },
+                  "citta": {
+                    "example": "any"
+                  },
+                  "immagine": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Ristoranti"
+        ],
+        "summary": "Elimina il proprio ristorante",
+        "description": "Elimina il ristorante associato all'utente autenticato e i relativi piatti.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/catalogo/": {
+      "get": {
+        "tags": [
+          "Catalogo"
+        ],
+        "summary": "Visualizza il catalogo dei piatti",
+        "description": "Restituisce l'elenco dei piatti presenti nel catalogo. È possibile filtrare i risultati.",
+        "parameters": [
+          {
+            "name": "nome",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "categoria",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ingrediente",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "allergene",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/catalogo/{id}": {
+      "get": {
+        "tags": [
+          "Catalogo"
+        ],
+        "summary": "Visualizza un piatto del catalogo",
+        "description": "Restituisce il dettaglio di un piatto del catalogo.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/piatti/": {
+      "post": {
+        "tags": [
+          "Piatti"
+        ],
+        "summary": "Crea un piatto personalizzato",
+        "description": "Crea un nuovo piatto personalizzato per il ristorante.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ristorante": {
+                    "example": "any"
+                  },
+                  "nome": {
+                    "example": "any"
+                  },
+                  "categoria": {
+                    "example": "any"
+                  },
+                  "prezzo": {
+                    "example": "any"
+                  },
+                  "ingredienti": {
+                    "example": "any"
+                  },
+                  "allergeni": {
+                    "example": "any"
+                  },
+                  "immagine": {
+                    "example": "any"
+                  },
+                  "disponibile": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Piatti"
+        ],
+        "summary": "Ricerca i piatti disponibili",
+        "description": "Restituisce l'elenco dei piatti disponibili applicando eventuali filtri di ricerca.",
+        "parameters": [
+          {
+            "name": "nome",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "categoria",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "prezzoMin",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "prezzoMax",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ingrediente",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "allergene",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/piatti/da-catalogo": {
+      "post": {
+        "tags": [
+          "Piatti"
+        ],
+        "summary": "Aggiunge un piatto del catalogo al menu",
+        "description": "Aggiunge al menu del ristorante un piatto presente nel catalogo.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idPiattoCatalogo": {
+                    "example": "any"
+                  },
+                  "ristorante": {
+                    "example": "any"
+                  },
+                  "prezzo": {
+                    "example": "any"
+                  },
+                  "disponibile": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/piatti/ristorante/{id}": {
+      "get": {
+        "tags": [
+          "Piatti"
+        ],
+        "summary": "Visualizza il menu di un ristorante",
+        "description": "Restituisce i piatti presenti nel menu del ristorante specificato.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/piatti/{id}": {
+      "put": {
+        "tags": [
+          "Piatti"
+        ],
+        "summary": "Modifica un piatto",
+        "description": "Modifica i dati del piatto specificato.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "example": "any"
+                  },
+                  "categoria": {
+                    "example": "any"
+                  },
+                  "prezzo": {
+                    "example": "any"
+                  },
+                  "ingredienti": {
+                    "example": "any"
+                  },
+                  "allergeni": {
+                    "example": "any"
+                  },
+                  "immagine": {
+                    "example": "any"
+                  },
+                  "disponibile": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Piatti"
+        ],
+        "summary": "Elimina un piatto",
+        "description": "Elimina il piatto specificato dal menu del ristorante.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/ordini/": {
+      "post": {
+        "tags": [
+          "Ordini"
+        ],
+        "summary": "Crea un nuovo ordine",
+        "description": "Crea un nuovo ordine per il cliente autenticato.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/ordini/acquisti": {
+      "get": {
+        "tags": [
+          "Ordini"
+        ],
+        "summary": "Visualizza gli acquisti presenti e passati",
+        "description": "Restituisce gli acquisti presenti e passati del cliente autenticato.",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/ordini/ristorante/{id}/statistiche": {
+      "get": {
+        "tags": [
+          "Ordini"
+        ],
+        "summary": "Visualizza le statistiche del ristorante",
+        "description": "Restituisce le statistiche relative al ristorante specificato.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/ordini/ristorante/{id}": {
+      "get": {
+        "tags": [
+          "Ordini"
+        ],
+        "summary": "Visualizza gli ordini del ristorante",
+        "description": "Restituisce gli ordini ricevuti dal ristorante specificato.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/ordini/{id}/stato": {
+      "put": {
+        "tags": [
+          "Ordini"
+        ],
+        "summary": "Aggiorna lo stato di un ordine",
+        "description": "Aggiorna lo stato dell'ordine specificato.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  }
+}

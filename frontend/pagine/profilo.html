@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FastFood - Profilo</title>
+
+    <!-- Icona della pagina -->
+    <link rel="icon" type="image/svg+xml" href="../immagini/favicon.svg">
+    <!-- Bootstrap e stile personalizzato -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/stile.css">
+</head>
+
+<body>
+    <!-- ============================================================
+         NAVBAR
+         ============================================================ -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+        <div class="container">
+            <a class="navbar-brand logo-fastfood" href="../index.html">
+                FastFood
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#menuNavigazione" aria-controls="menuNavigazione"
+                aria-expanded="false" aria-label="Apri o chiudi il menu di navigazione">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menuNavigazione">
+                <ul id="listaNavigazione" class="navbar-nav ms-auto">
+                    <!-- Link generati da utilita.js -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+         PROFILO UTENTE
+         ============================================================ -->
+    <main class="container contenitore-pagina">
+        <h1 class="mb-4">Profilo utente</h1>
+
+        <div id="messaggioProfilo" aria-live="polite"></div>
+
+        <!-- ============================================================
+             VISUALIZZAZIONE DEI DATI
+             ============================================================ -->
+        <div id="cardDatiProfilo" class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="h5 mb-4">Informazioni account</h2>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <p class="fw-bold mb-1">Nome e Cognome</p>
+                        <p id="testoNomeCompleto">-</p>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <p class="fw-bold mb-1">Email</p>
+                        <p id="testoEmail">-</p>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <p class="fw-bold mb-1">Telefono</p>
+                        <p id="testoTelefono">-</p>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <p class="fw-bold mb-1">Tipo utente</p>
+                        <p id="testoTipoUtente">-</p>
+                    </div>
+                </div>
+
+                <div id="datiCliente" class="d-none">
+                    <hr>
+
+                    <h3 class="h5 mb-3">Dati cliente</h3>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <p class="fw-bold mb-1">
+                                Metodo pagamento
+                            </p>
+                            <p id="testoMetodoPagamento">-</p>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <p class="fw-bold mb-1">
+                                Categorie preferite
+                            </p>
+                            <p id="testoPreferenze">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="d-flex gap-2 flex-wrap">
+                    <button type="button" id="bottoneMostraModifica"
+                        class="btn btn-danger">
+                        Modifica dati
+                    </button>
+
+                    <button type="button" id="bottoneLogout"
+                        class="btn btn-outline-secondary">
+                        Logout
+                    </button>
+
+                    <button type="button" id="bottoneEliminaProfilo"
+                        class="btn btn-outline-danger">
+                        Elimina profilo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             MODIFICA DEI DATI
+             ============================================================ -->
+        <div id="cardModificaProfilo" class="card shadow-sm mb-4 d-none">
+            <div class="card-body">
+                <h2 class="h5 mb-4">Modifica dati</h2>
+
+                <form id="formProfilo">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="nome" class="form-label">
+                                Nome
+                            </label>
+
+                            <input type="text" id="nome" name="nome" class="form-control" 
+                                autocomplete="given-name" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="cognome" class="form-label">
+                                Cognome
+                            </label>
+
+                            <input type="text" id="cognome" name="cognome" class="form-control"
+                                autocomplete="family-name" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">
+                                Email
+                            </label>
+
+                            <input type="email" id="email" name="email"
+                                class="form-control" autocomplete="email" disabled>
+
+                            <div class="form-text">
+                                L'email non viene modificata da questa pagina.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="telefono" class="form-label">
+                                Telefono
+                            </label>
+
+                            <input type="text" id="telefono" name="telefono" class="form-control"
+                                autocomplete="tel" inputmode="numeric" maxlength="15">
+
+                            <div class="invalid-feedback">
+                                Il telefono deve contenere solo numeri, da 8 a 15 cifre.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================================
+                         CAMBIO PASSWORD
+                         ============================================================ -->
+                    <hr>
+
+                    <h3 class="h5 mb-3">Cambio password</h3>
+
+                    <p class="text-muted testo-piccolo">
+                        Compila questi campi solo se vuoi modificare la password.
+                    </p>
+
+                    <div class="mb-3">
+                        <label for="passwordAttuale" class="form-label">
+                            Password attuale
+                        </label>
+
+                        <input type="password" id="passwordAttuale" name="passwordAttuale"
+                            class="form-control" autocomplete="current-password">
+
+                        <div class="invalid-feedback">
+                            Inserisci la password attuale.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nuovaPassword" class="form-label">
+                            Nuova password
+                        </label>
+
+                        <input type="password" id="nuovaPassword" name="nuovaPassword"
+                            class="form-control" autocomplete="new-password">
+
+                        <div class="invalid-feedback">
+                            La nuova password deve contenere almeno 6 caratteri.
+                        </div>
+                    </div>
+
+                    <!-- ============================================================
+                         DATI DEL CLIENTE
+                         ============================================================ -->
+                    <div id="sezioneCliente" class="d-none">
+                        <hr>
+
+                        <h3 class="h5 mb-3">Metodo di pagamento</h3>
+
+                        <p class="text-muted testo-piccolo">
+                            Dati fittizi usati solo per il progetto. Non inserire dati reali.
+                        </p>
+
+                        <div class="mb-3">
+                            <label for="numeroCarta" class="form-label">
+                                Numero carta
+                            </label>
+
+                            <input type="text" id="numeroCarta" name="numeroCarta"
+                                class="form-control" inputmode="numeric"
+                                placeholder="1234567812345678" maxlength="16">
+
+                            <div class="invalid-feedback">
+                                Il numero carta deve contenere 16 cifre.
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="scadenza" class="form-label">
+                                    Scadenza
+                                </label>
+
+                                <input type="text" id="scadenza" name="scadenza"
+                                    class="form-control" inputmode="numeric"
+                                    placeholder="MM/AA" maxlength="5">
+
+                                <div class="invalid-feedback">
+                                    La scadenza deve essere nel formato MM/AA.
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="cvv" class="form-label">
+                                    CVV
+                                </label>
+
+                                <input type="text" id="cvv" name="cvv"
+                                    class="form-control" inputmode="numeric"
+                                    placeholder="123" maxlength="3">
+
+                                <div class="invalid-feedback">
+                                    Il CVV deve contenere 3 cifre.
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <h3 class="h5 mb-3">Preferenze</h3>
+
+                        <div class="mb-3">
+                            <label for="categoriePreferite" class="form-label">
+                                Categorie preferite
+                            </label>
+
+                            <input type="text" id="categoriePreferite" name="categoriePreferite"
+                                class="form-control" placeholder="Esempio: Dessert, Beef, Chicken">
+
+                            <div class="form-text">
+                                Scrivi le categorie separate da virgola.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-4">
+                        <button type="submit" class="btn btn-danger">
+                            Salva modifiche
+                        </button>
+
+                        <button type="button" id="bottoneAnnullaModifica"
+                            class="btn btn-outline-secondary">
+                            Annulla
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- ============================================================
+         SCRIPT
+         ============================================================ -->
+    <script src="../js/utilita.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/profilo.js"></script>
+    <!-- JavaScript di Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
