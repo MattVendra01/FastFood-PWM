@@ -1,0 +1,23 @@
+
+# Credenziali e variabili d'ambiente
+.env
+.env.*
+!.env.example
+
+# Dipendenze Node.js
+node_modules/
+
+# Log
+*.log
+npm-debug.log*
+
+# File temporanei e backup
+*.tmp
+*.bak
+
+# File di sistema
+.DS_Store
+Thumbs.db
+
+# Dataset universitario non incluso nel repository
+backend/dati/meals.json
